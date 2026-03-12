@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梦境书房</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="dream-glow glow-left"></div>
+    <div class="dream-glow glow-right"></div>
+    <div class="stars" aria-hidden="true"></div>
+
+    <section id="menu-view" class="view view-active">
+      <section class="hero hero-menu">
+        <p class="hero-tag">Moonlight Library</p>
+        <h1>梦境书房</h1>
+        <p class="hero-text">
+          从目录进入你的阅读空间，记录一本书的感受、笔记和每年的阅读轨迹。
+        </p>
+      </section>
+
+      <section class="card menu-card">
+        <div class="section-heading">
+          <h2>目录</h2>
+          <p>选择一个入口，慢慢整理你的阅读宇宙。</p>
+        </div>
+        <div class="menu-actions">
+          <button id="open-form-button" class="menu-button" type="button">添加一本书</button>
+          <button id="open-list-button" class="menu-button" type="button">查看我的书单</button>
+          <button id="open-yearly-button" class="menu-button" type="button">年度阅读</button>
+        </div>
+      </section>
+
+      <section class="card stats-card">
+        <div class="section-heading">
+          <h2>阅读统计</h2>
+          <p>这里会根据你的书单自动更新。</p>
+        </div>
+        <div id="stats-grid" class="stats-grid"></div>
+      </section>
+    </section>
+
+    <section id="form-view" class="view hidden">
+      <section class="card form-card">
+        <div class="toolbar">
+          <button class="back-button" id="back-from-form" type="button">返回目录</button>
+          <button class="back-button subtle-button" id="go-to-list-from-form" type="button">查看我的书单</button>
+        </div>
+
+        <div class="section-heading">
+          <h2 id="form-title">添加一本书</h2>
+          <p id="form-subtitle">把刚遇见的新书轻轻放进你的书房。</p>
+        </div>
+
+        <form id="book-form" class="book-form">
+          <label for="title">书名</label>
+          <input id="title" name="title" type="text" placeholder="例如：小王子">
+
+          <label for="author">作者</label>
+          <input id="author" name="author" type="text" placeholder="例如：圣埃克苏佩里">
+
+          <label for="status">阅读状态</label>
+          <select id="status" name="status">
+            <option value="想读">想读</option>
+            <option value="在读">在读</option>
+            <option value="读完">读完</option>
+          </select>
+
+          <label for="category">分类</label>
+          <select id="category" name="category">
+            <option value="小说">小说</option>
+            <option value="文学">文学</option>
+            <option value="历史">历史</option>
+            <option value="成长">成长</option>
+            <option value="心理">心理</option>
+            <option value="其他">其他</option>
+          </select>
+
+          <label for="rating">评分</label>
+          <select id="rating" name="rating">
+            <option value="0">暂不评分</option>
+            <option value="1">1 星</option>
+            <option value="2">2 星</option>
+            <option value="3">3 星</option>
+            <option value="4">4 星</option>
+            <option value="5">5 星</option>
+          </select>
+
+          <label for="finished-date">读完日期</label>
+          <input id="finished-date" name="finished-date" type="date">
+
+          <label for="review">简短书评</label>
+          <textarea
+            id="review"
+            name="review"
+            rows="3"
+            placeholder="写下一句简短感受吧"
+          ></textarea>
+
+          <label for="notes">读书笔记</label>
+          <textarea
+            id="notes"
+            name="notes"
+            rows="7"
+            placeholder="记录摘抄、思考，或者你想慢慢补充的阅读笔记"
+          ></textarea>
+
+          <div class="form-actions">
+            <button id="submit-button" type="submit">添加到书单</button>
+            <button id="cancel-button" class="secondary-button hidden" type="button">取消编辑</button>
+          </div>
+          <p id="form-message" class="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+    </section>
+
+    <section id="list-view" class="view hidden">
+      <section class="card list-card">
+        <div class="toolbar">
+          <button class="back-button" id="back-from-list" type="button">返回目录</button>
+          <button class="back-button subtle-button" id="go-to-form-from-list" type="button">添加一本书</button>
+        </div>
+
+        <div class="section-heading">
+          <h2>我的书单</h2>
+          <p>从书单里继续整理、筛选，也可以回到表单编辑每一本书。</p>
+        </div>
+
+        <div class="mini-stats" id="list-summary"></div>
+
+        <div class="filter-bar">
+          <label for="category-filter">按分类查看</label>
+          <select id="category-filter" name="category-filter">
+            <option value="全部">全部</option>
+            <option value="小说">小说</option>
+            <option value="文学">文学</option>
+            <option value="历史">历史</option>
+            <option value="成长">成长</option>
+            <option value="心理">心理</option>
+            <option value="其他">其他</option>
+          </select>
+        </div>
+
+        <div id="book-list" class="book-list"></div>
+      </section>
+    </section>
+
+    <section id="yearly-view" class="view hidden">
+      <section class="card yearly-card">
+        <div class="toolbar">
+          <button class="back-button" id="back-from-yearly" type="button">返回目录</button>
+          <button class="back-button subtle-button" id="go-to-list-from-yearly" type="button">查看我的书单</button>
+        </div>
+
+        <div class="section-heading">
+          <h2>年度阅读</h2>
+          <p>按读完年份回顾这一年的阅读成果。</p>
+        </div>
+
+        <div class="year-filter">
+          <label for="year-filter">选择年份</label>
+          <select id="year-filter" name="year-filter"></select>
+        </div>
+
+        <div id="yearly-summary" class="yearly-summary"></div>
+        <div id="yearly-list" class="book-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
